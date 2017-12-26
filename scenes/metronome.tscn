@@ -1,8 +1,25 @@
-[gd_scene load_steps=4 format=1]
+[gd_scene load_steps=7 format=1]
 
 [ext_resource path="res://themes/regularTheme.tres" type="Theme" id=1]
-[ext_resource path="res://fonts/DynamicFonts/Default.tres" type="DynamicFont" id=2]
+[ext_resource path="res://themes/derpTheme.tres" type="Theme" id=2]
 [ext_resource path="res://scenes/subdivider.tscn" type="PackedScene" id=3]
+[ext_resource path="res://scenes/ticker.tscn" type="PackedScene" id=4]
+
+[sub_resource type="CanvasItemShader" id=1]
+
+_code = {
+"fragment": "",
+"fragment_ofs": 0,
+"light": "",
+"light_ofs": 0,
+"vertex": "",
+"vertex_ofs": 0
+}
+
+[sub_resource type="CanvasItemMaterial" id=2]
+
+shader/shader = SubResource( 1 )
+shader/shading_mode = 0
 
 [node name="Control" type="Control"]
 
@@ -15,8 +32,8 @@ size_flags/vertical = 2
 theme/theme = ExtResource( 1 )
 margin/left = 0.0
 margin/top = 0.0
-margin/right = -6.0
-margin/bottom = -14.0
+margin/right = 0.0
+margin/bottom = 0.0
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 
@@ -39,40 +56,40 @@ size_flags/horizontal = 2
 size_flags/vertical = 2
 margin/left = 8.0
 margin/top = 0.0
-margin/right = 1452.0
-margin/bottom = 2574.0
+margin/right = 1440.0
+margin/bottom = 2560.0
 alignment = 0
 
-[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/VBoxContainer"]
+[node name="title" type="MarginContainer" parent="MarginContainer/VBoxContainer"]
 
-editor/display_folded = true
 focus/ignore_mouse = false
 focus/stop_mouse = true
 size_flags/horizontal = 0
 size_flags/vertical = 0
-margin/left = 627.0
+margin/left = 387.0
 margin/top = 0.0
-margin/right = 817.0
+margin/right = 1045.0
 margin/bottom = 109.0
 custom_constants/margin_bottom = 0
 
-[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/MarginContainer"]
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/title"]
 
 focus/ignore_mouse = true
 focus/stop_mouse = true
 size_flags/horizontal = 2
 size_flags/vertical = 0
+theme/theme = ExtResource( 2 )
 margin/left = 8.0
 margin/top = 0.0
-margin/right = 190.0
+margin/right = 658.0
 margin/bottom = 109.0
-custom_fonts/font = ExtResource( 2 )
-text = "Hello"
+text = "Open Metronome"
+align = 1
 percent_visible = 1.0
 lines_skipped = 0
 max_lines_visible = -1
 
-[node name="Button" type="Button" parent="MarginContainer/VBoxContainer"]
+[node name="tempo" type="MarginContainer" parent="MarginContainer/VBoxContainer"]
 
 focus/ignore_mouse = false
 focus/stop_mouse = true
@@ -80,47 +97,130 @@ size_flags/horizontal = 2
 size_flags/vertical = 2
 margin/left = 0.0
 margin/top = 113.0
-margin/right = 1444.0
-margin/bottom = 228.0
-toggle_mode = false
+margin/right = 1432.0
+margin/bottom = 232.0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer/tempo"]
+
+focus/ignore_mouse = false
+focus/stop_mouse = false
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 8.0
+margin/top = 0.0
+margin/right = 1432.0
+margin/bottom = 119.0
+alignment = 0
+
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/tempo/HBoxContainer"]
+
+focus/ignore_mouse = true
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 0
+margin/left = 0.0
+margin/top = 5.0
+margin/right = 259.0
+margin/bottom = 114.0
+text = "Tempo"
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+
+[node name="SpinBox" type="SpinBox" parent="MarginContainer/VBoxContainer/tempo/HBoxContainer"]
+
+material/material = SubResource( 2 )
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 263.0
+margin/top = 0.0
+margin/right = 597.0
+margin/bottom = 119.0
+range/min = 0.0
+range/max = 100.0
+range/step = 1.0
+range/page = 0.0
+range/value = 1.0
+range/exp_edit = false
+range/rounded = false
+editable = true
+prefix = ""
+suffix = ""
+
+[node name="play" type="Button" parent="MarginContainer/VBoxContainer"]
+
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 0.0
+margin/top = 236.0
+margin/right = 1432.0
+margin/bottom = 355.0
+toggle_mode = true
 enabled_focus_mode = 2
 shortcut = null
 text = "Play"
 flat = false
 
-[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
+[node name="subdividers" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
 
 focus/ignore_mouse = false
 focus/stop_mouse = false
 size_flags/horizontal = 2
 size_flags/vertical = 2
 margin/left = 0.0
-margin/top = 232.0
-margin/right = 1444.0
-margin/bottom = 470.0
+margin/top = 359.0
+margin/right = 1432.0
+margin/bottom = 478.0
 alignment = 0
 
-[node name="MarginContainer" parent="MarginContainer/VBoxContainer/HBoxContainer" instance=ExtResource( 3 )]
+[node name="subdivider" parent="MarginContainer/VBoxContainer/subdividers" instance=ExtResource( 3 )]
 
-margin/right = 358.0
-margin/bottom = 238.0
+anchor/left = 0
+anchor/top = 0
+anchor/right = 0
+anchor/bottom = 0
+margin/left = 0.0
+margin/top = 0.0
+margin/right = 350.0
+margin/bottom = 119.0
 
-[node name="MarginContainer 2" parent="MarginContainer/VBoxContainer/HBoxContainer" instance=ExtResource( 3 )]
+[node name="subdivider 2" parent="MarginContainer/VBoxContainer/subdividers" instance=ExtResource( 3 )]
 
-margin/left = 362.0
-margin/right = 720.0
-margin/bottom = 238.0
+anchor/left = 0
+anchor/top = 0
+anchor/right = 0
+anchor/bottom = 0
+margin/left = 354.0
+margin/top = 0.0
+margin/right = 704.0
+margin/bottom = 119.0
 
-[node name="MarginContainer 3" parent="MarginContainer/VBoxContainer/HBoxContainer" instance=ExtResource( 3 )]
+[node name="subdivider 3" parent="MarginContainer/VBoxContainer/subdividers" instance=ExtResource( 3 )]
 
-margin/left = 724.0
-margin/right = 1082.0
-margin/bottom = 238.0
+anchor/left = 0
+anchor/top = 0
+anchor/right = 0
+anchor/bottom = 0
+margin/left = 708.0
+margin/top = 0.0
+margin/right = 1058.0
+margin/bottom = 119.0
 
-[node name="MarginContainer 4" parent="MarginContainer/VBoxContainer/HBoxContainer" instance=ExtResource( 3 )]
+[node name="subdivider 4" parent="MarginContainer/VBoxContainer/subdividers" instance=ExtResource( 3 )]
 
-margin/left = 1086.0
-margin/right = 1444.0
-margin/bottom = 238.0
+anchor/left = 0
+anchor/top = 0
+anchor/right = 0
+anchor/bottom = 0
+margin/left = 1062.0
+margin/top = 0.0
+margin/right = 1412.0
+margin/bottom = 119.0
+
+[node name="ticker" parent="." instance=ExtResource( 4 )]
 
 
